@@ -1,0 +1,21 @@
+{
+  "name": "sorteo",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Benjamin Garrido",
+  "license": "ISC",
+  "dependencies": {
+    "bower": "^1.7.9",
+    "gulp": "^3.9.1",
+    "gulp-closure-compiler": "^0.4.0",
+    "gulp-gjslint": "^0.1.5",
+    "gulp-jshint": "^2.0.1",
+    "gulp-jslint": "^1.0.5",
+    "gulp-webserver": "^0.9.1",
+    "jshint": "^2.9.3"
+  }
+}
