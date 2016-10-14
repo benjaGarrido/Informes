@@ -1,6 +1,11 @@
 /*global angular*/
 var angularApp = angular.module("GeneradorInformes", ["ui.bootstrap", "ngRoute"]);
-angularApp.controller("MainController", ["locationProvider", "$routeProvider", function ($locationProvider, $routeProvider) {
+angularApp.controller("MainController", ["$scope", "$location", function ($scope, $location) {
+    $scope.initApp = function () {
+        $location.path("/registro");
+    };
+}]);
+angularApp.config(["$locationProvider", "$routeProvider", function ($locationProvider, $routeProvider) {
     "use strict";
     $locationProvider.html5Mode();
     $routeProvider.when("/registro", {
