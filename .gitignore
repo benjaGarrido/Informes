@@ -1,5 +1,7 @@
 # Dependency directories
 node_modules
+app/lib
+dist
 
 # Optional npm cache directory
 .npm

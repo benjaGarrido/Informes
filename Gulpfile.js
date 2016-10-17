@@ -5,7 +5,8 @@ var gulp = require('gulp')
     , jsHint = require("gulp-jshint")
     , gjsLint = require("gulp-gjslint")
     , rename = require("gulp-rename")
-    , jsmin = require("gulp-jsmin");
+    , jsmin = require("gulp-jsmin")
+    , uglify = require("gulp-uglify");
 // Servidor web de desarrollo 
 gulp.task("dev-server", function () {
     "use strict";
@@ -36,7 +37,21 @@ gulp.task("jsGoogleLint", function () {
 // Comprime nuestro código con la herramienta JsMin
 gulp.task("compressJsMin", function () {
     "use strict";
-    gulp.src(["./app/js/mainController.js", "./app/js/controller/*.js"]).pipe(jsmin()).pipe(rename({
+    gulp.src(["./app/js/mainController.js", "./app/js/controller/*.js", "./app/js/service/*.js"]).pipe(jsmin()).pipe(rename({
+        suffix: ".min"
+    })).pipe(gulp.dest("dist/js/"));
+});
+// Comprime nuestro código con la herramienta Uglify
+gulp.task("compressUglify", function () {
+    "use strict";
+    gulp.src(["./app/js/mainController.js", "./app/js/controller/*.js", "./app/js/service/*.js"]).pipe(uglify()).pipe(rename({
+        suffix: ".min"
+    })).pipe(gulp.dest("dist/js/"));
+});
+// Comprime nuestro código utilizando la suma de JsMin y Uglify
+gulp.task("superCompress", function () {
+    "use strict";
+    gulp.src(["./app/js/mainController.js", "./app/js/controller/*.js", "./app/js/service/*.js"]).pipe(jsmin()).pipe(uglify()).pipe(rename({
         suffix: ".min"
     })).pipe(gulp.dest("dist/js/"));
 });
