@@ -3,7 +3,9 @@ var gulp = require('gulp')
     , webserver = require('gulp-webserver')
     , jsLint = require("gulp-jslint")
     , jsHint = require("gulp-jshint")
-    , gjsLint = require("gulp-gjslint");
+    , gjsLint = require("gulp-gjslint")
+    , rename = require("gulp-rename")
+    , jsmin = require("gulp-jsmin");
 // Servidor web de desarrollo 
 gulp.task("dev-server", function () {
     "use strict";
@@ -31,4 +33,11 @@ gulp.task("jsGoogleLint", function () {
         fail: true
     });
 });
-gulp.task("default", ["jsLint", "dev-server"]);
+// Comprime nuestro código con la herramienta JsMin
+gulp.task("compressJsMin", function () {
+    "use strict";
+    gulp.src(["./app/js/mainController.js", "./app/js/controller/*.js"]).pipe(jsmin()).pipe(rename({
+        suffix: ".min"
+    })).pipe(gulp.dest("dist/js/"));
+});
+gulp.task("default", ["dev-server"]);
