@@ -8,11 +8,20 @@ var gulp = require('gulp')
     , jsmin = require("gulp-jsmin")
     , uglify = require("gulp-uglify")
     , concat = require("gulp-concat")
-    , minifyHTML = require("gulp-minify-html");
+    , minifyHTML = require("gulp-minify-html")
+    , deleteLines = require("gulp-delete-lines");
 // Servidor web de desarrollo 
 gulp.task("dev-server", function () {
     "use strict";
     gulp.src("./app").pipe(webserver({
+        open: true
+        , livereload: true
+    }));
+});
+// Servidor web de produccion 
+gulp.task("prod-server", function () {
+    "use strict";
+    gulp.src("./dist").pipe(webserver({
         open: true
         , livereload: true
     }));
@@ -73,4 +82,22 @@ gulp.task("copyLibs", function () {
     // Copiado de librerías
     gulp.src("./app/lib/**/*").pipe(gulp.dest("./dist/lib/"));
 });
+gulp.task("publish", function () {
+    "use strict";
+    // Copiado de librerías
+    gulp.src("./app/lib/**/*").pipe(gulp.dest("./dist/lib/"));
+    // Minificación y fusión de archivos javascript
+    gulp.src(["./app/js/mainController.js", "./app/js/**/*.js"]).pipe(concat("main.min.js")).pipe(jsmin()).pipe(uglify()).pipe(rename("main.min.js")).pipe(gulp.dest("dist/js/"));
+    // Minificación de plantillas HTML
+    gulp.src(".app/view/**/*.html").pipe(minifyHTML()).pipe(gulp.dest("dist/view/"));
+    // Minificación de index HTML
+    gulp.src(".app/index.html").pipe(deleteLines({
+        "filters": ["<--BEGIN PROD FILES"]
+    })).pipe(deleteLines({
+        "filters": ["END PROD FILES-->"]
+    })).pipe(deleteLines({
+        "filters": [new RegExp(".*DEVFILE.*")]
+    })).pipe(minifyHTML()).pipe(gulp.dest("dist/"));
+});
 gulp.task("default", ["dev-server"]);
+gulp.task("compile", ["jsHint", "publish"]);
