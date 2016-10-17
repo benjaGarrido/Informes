@@ -7,7 +7,8 @@ var gulp = require('gulp')
     , rename = require("gulp-rename")
     , jsmin = require("gulp-jsmin")
     , uglify = require("gulp-uglify")
-    , concat = require("gulp-concat");
+    , concat = require("gulp-concat")
+    , minifyHTML = require("gulp-minify-html");
 // Servidor web de desarrollo 
 gulp.task("dev-server", function () {
     "use strict";
@@ -60,5 +61,16 @@ gulp.task("superCompress", function () {
 gulp.task("compressAndConcat", function () {
     "use strict";
     gulp.src(["./app/js/mainController.js", "./app/js/**/*.js"]).pipe(concat("main.min.js")).pipe(jsmin()).pipe(uglify()).pipe(rename("main.min.js")).pipe(gulp.dest("dist/js/"));
+});
+// Minificación del html
+gulp.task("compressHTML", function () {
+    "use strict";
+    gulp.src(".app/index.html").pipe(minifyHTML()).pipe(gulp.dest("dist/"));
+});
+// Copia de los archivos y librerías necesarios
+gulp.task("copyLibs", function () {
+    "use strict";
+    // Copiado de librerías
+    gulp.src("./app/lib/**/*").pipe(gulp.dest("./dist/lib/"));
 });
 gulp.task("default", ["dev-server"]);
