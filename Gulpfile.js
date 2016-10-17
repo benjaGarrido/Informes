@@ -6,7 +6,8 @@ var gulp = require('gulp')
     , gjsLint = require("gulp-gjslint")
     , rename = require("gulp-rename")
     , jsmin = require("gulp-jsmin")
-    , uglify = require("gulp-uglify");
+    , uglify = require("gulp-uglify")
+    , concat = require("gulp-concat");
 // Servidor web de desarrollo 
 gulp.task("dev-server", function () {
     "use strict";
@@ -54,5 +55,10 @@ gulp.task("superCompress", function () {
     gulp.src(["./app/js/mainController.js", "./app/js/controller/*.js", "./app/js/service/*.js"]).pipe(jsmin()).pipe(uglify()).pipe(rename({
         suffix: ".min"
     })).pipe(gulp.dest("dist/js/"));
+});
+// Minificación y fusión de archivos javascript
+gulp.task("compressAndConcat", function () {
+    "use strict";
+    gulp.src(["./app/js/mainController.js", "./app/js/**/*.js"]).pipe(concat("main.min.js")).pipe(jsmin()).pipe(uglify()).pipe(rename("main.min.js")).pipe(gulp.dest("dist/js/"));
 });
 gulp.task("default", ["dev-server"]);
