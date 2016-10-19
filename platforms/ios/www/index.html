@@ -1,0 +1,28 @@
+<html>
+
+<head>
+    <title>Generador de Informes</title>
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.css" DEVFILE="true">
+    <script src="lib/angular/angular.js" DEVFILE="true"></script>
+    <script src="lib/angular-route/angular-route.js" DEVFILE="true"></script>
+    <script src="lib/angular-bootstrap/ui-bootstrap-tpls.js" DEVFILE="true"></script>
+    <script src="lib/angular-mocks/angular-mocks.js" DEVFILE="true"></script>
+    <script src="js/mainController.js" DEVFILE="true"></script>
+    <script src="js/controller/cargandoController.js" DEVFILE="true"></script>
+    <script src="js/controller/informeController.js" DEVFILE="true"></script>
+    <script src="js/controller/registroController.js" DEVFILE="true"></script>
+    <script src="js/service/informeService.js" DEVFILE="true"></script>
+    <!-- BEGIN PROD FILE   
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <script src="lib/angular/angular.min.js"></script>
+    <script src="lib/angular-route/angular-route.min.js"></script>
+<script src="lib/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+<script src="js/main.min.js"></script> END PROD FILE -->
+</head>
+
+<body ng-app="GeneradorInformes" ng-controller="MainController" data-ng-init="initApp()">
+    <h1>Bienvenido al generador de informes</h1>
+    <ng-view></ng-view>
+</body>
+
+</html>

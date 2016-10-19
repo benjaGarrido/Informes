@@ -99,5 +99,19 @@ gulp.task("publish", function () {
         "filters": [new RegExp(".*DEVFILE.*")]
     })).pipe(minifyHTML()).pipe(gulp.dest("dist/"));
 });
+// Copia el contenido de /app en /www para probar la aplicacion con apache cordova
+gulp.task("cordovaDev", function () {
+    "use strict";
+    gulp.src("./app/**/*").pipe(gulp.dest("./www/"));
+    gulp.src("./app/res/**/*").pipe(gulp.dest("./www/res/"));
+});
+// Añade las partes adicionales necesarias para la aplicación apache cordova
+gulp.task("cordovaDist", function () {
+    "use strict";
+    gulp.src("./dist/**/*").pipe(gulp.dest("./www/"));
+    gulp.src("./app/res/**/*").pipe(gulp.dest("./www/res/"));
+});
 gulp.task("default", ["dev-server"]);
 gulp.task("compile", ["jsHint", "publish"]);
+// Genera una versión de producción para distribuir la aplicación con apache cordova
+gulp.task("compileCordova", ["compile", "cordovaDist"]);
